@@ -178,13 +178,13 @@ func main() {
 		v := strings.TrimPrefix(ghRelease.TagName, "v")
 
 		// add docker images
-		repositories, err := getDockerImages("https://hub.docker.com/v2/repositories/thorax/erigon/tags", v)
+		repositories, err := getDockerImages("https://hub.docker.com/v2/repositories/settlemint/bsc-erigon/tags", v)
 		if err != nil {
 			fmt.Println(err)
 			continue
 		}
 		for _, repo := range repositories {
-			file := fmt.Sprintf("https://hub.docker.com/r/thorax/erigon/tags?page=1&ordering=last_updated&name=%s", repo.Name)
+			file := fmt.Sprintf("https://hub.docker.com/r/settlemint/bsc-erigon/tags?page=1&ordering=last_updated&name=%s", repo.Name)
 			binary := Binary{
 				Name:     repo.Name,
 				File:     file,

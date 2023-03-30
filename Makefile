@@ -10,7 +10,7 @@ ERIGON_USER ?= erigon
 # if using volume-mounting data dir, then must exist on host OS
 DOCKER_UID ?= $(shell id -u)
 DOCKER_GID ?= $(shell id -g)
-DOCKER_TAG ?= thorax/erigon:latest
+DOCKER_TAG ?= settlemint/bsc-erigon:latest
 
 # Variables below for building on host OS, and are ignored for docker
 #
@@ -246,8 +246,8 @@ release: git-submodules
 		ghcr.io/goreleaser/goreleaser-cross:${GOLANG_CROSS_VERSION} \
 		--clean --skip-validate
 
-	@docker image push --all-tags thorax/erigon
-	@docker image push --all-tags ghcr.io/ledgerwatch/erigon
+	@docker image push --all-tags settlemint/bsc-erigon
+	@docker image push --all-tags ghcr.io/settlemint/bsc-erigon
 
 # since DOCKER_UID, DOCKER_GID are default initialized to the current user uid/gid,
 # we need separate envvars to facilitate creation of the erigon user on the host OS.
@@ -287,9 +287,9 @@ coverage:
 ## hive:                              run hive test suite locally using docker e.g. OUTPUT_DIR=~/results/hive SIM=ethereum/engine make hive
 .PHONY: hive
 hive:
-	DOCKER_TAG=thorax/erigon:ci-local make docker
-	docker pull thorax/hive:latest
-	docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(OUTPUT_DIR):/work thorax/hive:latest --sim $(SIM) --results-root=/work/results --client erigon_ci-local # run erigon
+	DOCKER_TAG=settlemint/bsc-erigon:ci-local make docker
+	docker pull settlemint/hive:latest
+	docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(OUTPUT_DIR):/work settlemint/hive:latest --sim $(SIM) --results-root=/work/results --client erigon_ci-local # run erigon
 
 ## automated-tests                    run automated tests (BUILD_ERIGON=0 to prevent erigon build with local image tag)
 .PHONY: automated-tests

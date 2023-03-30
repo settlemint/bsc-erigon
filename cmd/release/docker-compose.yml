@@ -22,7 +22,7 @@ services:
       - traefik
 
   download:
-    image: thorax/download:latest
+    image: settlemint/download:latest
     restart: always
     labels:
       - "traefik.enable=true"
