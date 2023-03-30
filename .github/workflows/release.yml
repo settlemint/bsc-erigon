@@ -27,8 +27,8 @@ jobs:
       - name: dockerhub-login
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB }}
-          password: ${{ secrets.DOCKERHUB_KEY }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
       - name: ghcr-login
         uses: docker/login-action@v2
         with:
@@ -51,5 +51,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.prepare.outputs.tag_name }}
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_KEY }}
+
+
+
+      # - name: Publish downloads
+      #   run: |
+      #     cd cmd/release
+      #     docker buildx build --push --platform linux/amd64 --build-arg GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" -t settlemint/download:latest .
