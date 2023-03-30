@@ -27,8 +27,8 @@ jobs:
       - name: dockerhub-login
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB }}
-          password: ${{ secrets.DOCKERHUB_KEY }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
       - name: ghcr-login
         uses: docker/login-action@v2
         with:
